@@ -1,8 +1,11 @@
+import serverCanvas from 'canvas'
+
 const checkboardCache = {}
 
 export function render(c1, c2, size) {
-  if (typeof document === 'undefined') return null // Dont Render On Server
-  const canvas = document.createElement('canvas')
+  const canvas = typeof document !== 'undefined' ?
+    document.createElement('canvas') :
+    new serverCanvas
   canvas.width = canvas.height = size * 2
   const ctx = canvas.getContext('2d')
   if (!ctx) return null // If no context can be found, return early.
